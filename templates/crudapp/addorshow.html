@@ -1,0 +1,50 @@
+{% extends 'crudapp/base.html' %}
+
+{% block content %}
+<div class="row mt-2">
+    <div class="col-sm-4 my-2">
+        <h3 class="text-center alert alert-secondary">Add New Employee</h3>
+        <form action="" method="post" novalidate>
+            {%csrf_token%}
+            {{form.as_p}}
+            <input type="submit" class="btn btn-success btn-sm col-sm-12" value="Add">
+        </form>
+    </div>
+    <div class="col-sm-8 my-2">
+        <h3 class="text-center alert alert-secondary">Employee Informations</h3>
+        {% if all_records %}
+        <table class="table table-">
+            <thead>
+                <th scope="col">#</th>
+                <th scope="col">Employee Name</th>
+                <th scope="col">Employee Role</th>
+                <th scope="col">Employee Email</th>
+                <th scope="col">Action</th>
+            </thead>
+            <tbody>
+                
+                {% for record in all_records %}
+                <tr>
+                    <td scope="row">{{record.id}}</td>
+                    <td scope="row">{{record.name}}</td>
+                    <td scope="row">{{record.role}}</td>
+                    <td scope="row">{{record.email}}</td>
+                    <td scope="'row" class="">
+                        <a href="{% url 'update' record.id %}" class="btn btn-warning btn-sm ">Edit</a>
+                        <form action="{% url 'delete' record.id %}" method="post" class="d-inline">
+                            {%csrf_token%}
+                            <input type="submit" class="btn btn-danger btn-sm mx-2" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% else %}
+        <p class="text-center alert alert-info">No Record Found.</p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock content %}
