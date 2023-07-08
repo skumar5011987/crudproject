@@ -17,7 +17,7 @@
             <thead>
                 <th scope="col">#</th>
                 <th scope="col">Employee Name</th>
-                <th scope="col">Employee Role</th>
+                <th scope="col">Employee ID</th>
                 <th scope="col">Employee Email</th>
                 <th scope="col">Action</th>
             </thead>
@@ -25,7 +25,7 @@
                 
                 {% for record in all_records %}
                 <tr>
-                    <td scope="row">{{record.id}}</td>
+                    <td scope="row">{{ forloop.counter }}</td>
                     <td scope="row">{{record.name}}</td>
                     <td scope="row">{{record.role}}</td>
                     <td scope="row">{{record.email}}</td>

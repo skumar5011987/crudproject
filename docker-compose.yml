@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=crudOperation
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  web:
+    image: crud
+    command: >
+      bash -c "python manage.py makemigrations &&
+                python manage.py migrate && 
+                python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    env_file:
+      - config.env
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
